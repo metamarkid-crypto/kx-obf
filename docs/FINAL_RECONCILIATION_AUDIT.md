@@ -44,6 +44,24 @@ Consequences, stated plainly:
 
 Recommendation (corrective work, not performed now): initialize version control and record a baseline commit **before** any Phase 4 work, so the next audit can diff against a real tree.
 
+#### Addendum — 2026-11-07, later the same day: G1 RESOLVED
+
+The recommendation above was carried out. The text in this section is preserved
+as written because it accurately describes the state during the audit run; it is
+no longer the current state.
+
+```
+$ git rev-parse 4e8acf5   -> 4e8acf5788987836779a354e82890d9cd9a8775f
+$ git remote -v           -> origin https://github.com/metamarkid-crypto/kx-obf.git (main)
+```
+
+- **Baseline commit:** `4e8acf5` — 58 tracked files, source + tests + spec + docs + config.
+- **Pushed to:** `https://github.com/metamarkid-crypto/kx-obf.git`, branch `main`.
+- **Diff point for the next audit:** `git diff 4e8acf5..HEAD`.
+- **`node_modules/` and `dist/` are ignored** ([.gitignore](kxobh/kx-obh/.gitignore)). Verified from a clean clone: `npm ci && npm run build && npm test` → `tests 376 / pass 376 / fail 0`. Running `npm test` immediately after `npm ci`, without a build, fails with `Cannot find module '../../dist/...'` — so a clean checkout must build first.
+
+This changes no other finding in this document. Gates 2, 3 and 4 remain FAIL.
+
 ### Repository file tree (excluding `node_modules`, `dist`, `docs`)
 
 Actual tree, verified by enumeration on 2026-11-07:
@@ -128,6 +146,8 @@ Section 0 table. Every implementation path the directive names either does not e
 ### C5 — No version control
 
 Section 0/G1. Reproducibility and change auditing are impossible without it.
+
+**Addendum 2026-11-07: RESOLVED.** Baseline `4e8acf5` pushed to `origin/main`; reproducibility and change auditing are now possible via `git diff 4e8acf5..HEAD`. See the addendum in Section 1.
 
 ### C6 — Node 20 / 22 compatibility not tested
 

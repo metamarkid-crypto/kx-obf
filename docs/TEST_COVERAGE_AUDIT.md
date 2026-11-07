@@ -71,7 +71,7 @@ So: **1 of 4** claimed differential categories exists, and it covers one operato
 | Node 20 / 22 tested | **no** | no CI run; config notes forbid the claim |
 | CI jobs executed | **none** | `scripts/ci.sh` exists but was not run in a CI system |
 | Tests against fresh `dist` | **yes** | `npm run build` (exit 0) then tests; `find src -name '*.ts' -newer dist/compiler/emitter.js` → **0**, so no source is newer than its artifact |
-| Stale-artifact risk | low this session, unmanaged overall | `dist/` is not in version control (no git), so freshness depends on running `build` before `test`; `package.json` `test` script does **not** depend on `build` |
+| Stale-artifact risk | low this session, unmanaged overall | `dist/` is not in version control, so freshness depends on running `build` before `test`; `package.json` `test` script does **not** depend on `build`. **Addendum 2026-11-07:** `dist/` and `node_modules/` are now git-ignored rather than tracked (baseline `4e8acf5`), which makes the hazard structural instead of accidental — a fresh clone has no `dist/` at all and `npm test` fails until `npm run build` runs. Verified: clean clone → `npm ci` → `npm test` = `Cannot find module '../../dist/...'`; after `npm run build` → 376/376 pass. |
 | Source maps | none (`find dist -name '*.map'` → 0) | — |
 
 Exact commands and exit codes:
