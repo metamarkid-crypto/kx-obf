@@ -1,0 +1,42 @@
+{
+  "name": "kx-obh",
+  "version": "1.0.0",
+  "description": "KX-OBH v1.0 — JavaScript-to-bytecode compiler, VM, and cryptographically packaged single-file protector for authorized CommonJS applications.",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "bin": {
+    "kxobh": "./dist/cli/main.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "SPEC.md",
+    "LICENSES.md"
+  ],
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node --test --test-reporter=spec \"test/**/*.test.js\"",
+    "test:unit": "node --test \"test/compiler/**/*.test.js\" \"test/vm/**/*.test.js\"",
+    "ci": "bash scripts/ci.sh"
+  },
+  "devDependencies": {
+    "@types/estree": "1.0.10",
+    "@types/node": "26.6.6",
+    "acorn": "8.19.0",
+    "typescript": "7.0.2"
+  },
+  "dependencies": {},
+  "keywords": [
+    "bytecode",
+    "vm",
+    "obfuscation",
+    "packaging",
+    "compiler"
+  ]
+}

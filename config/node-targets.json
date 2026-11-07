@@ -1,0 +1,7 @@
+{
+  "$schema": "./node-targets.schema.json",
+  "declared": [20, 22, 24],
+  "testedOnHost": [24],
+  "hostNodeVersion": "24.15.0",
+  "notes": "Only majors listed in testedOnHost may be claimed as tested. Any major in 'declared' but not 'testedOnHost' is a target, not proof. Update testedOnHost after CI runs the suite on that major."
+}
